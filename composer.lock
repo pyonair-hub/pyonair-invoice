@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "62d2d5e220d738d87e84aff05b68c13f",
+    "content-hash": "db6eaeeaac6a05b7233542ec9cc34f46",
     "packages": [
         {
             "name": "alcohol/iso4217",
@@ -20701,22 +20701,22 @@
         },
         {
             "name": "symfony/zulip-notifier",
-            "version": "v7.4.0",
+            "version": "v8.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/zulip-notifier.git",
-                "reference": "ec225c0a6d3d8cd78d2d41de441e752f639a1264"
+                "reference": "ad35bee3c83473286e8e0bd55998839b9eee9d5c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/zulip-notifier/zipball/ec225c0a6d3d8cd78d2d41de441e752f639a1264",
-                "reference": "ec225c0a6d3d8cd78d2d41de441e752f639a1264",
+                "url": "https://api.github.com/repos/symfony/zulip-notifier/zipball/ad35bee3c83473286e8e0bd55998839b9eee9d5c",
+                "reference": "ad35bee3c83473286e8e0bd55998839b9eee9d5c",
                 "shasum": ""
             },
             "require": {
-                "php": ">=8.2",
-                "symfony/http-client": "^6.4|^7.0|^8.0",
-                "symfony/notifier": "^7.2|^8.0"
+                "php": ">=8.4",
+                "symfony/http-client": "^7.4|^8.0",
+                "symfony/notifier": "^7.4|^8.0"
             },
             "type": "symfony-notifier-bridge",
             "autoload": {
@@ -20748,7 +20748,7 @@
                 "zulip"
             ],
             "support": {
-                "source": "https://github.com/symfony/zulip-notifier/tree/v7.4.0"
+                "source": "https://github.com/symfony/zulip-notifier/tree/v8.0.0"
             },
             "funding": [
                 {
@@ -20768,7 +20768,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-08-29T10:36:42+00:00"
+            "time": "2025-09-01T09:26:06+00:00"
         },
         {
             "name": "symfonycasts/dynamic-forms",

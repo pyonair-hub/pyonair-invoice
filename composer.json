@@ -117,7 +117,7 @@
         "symfony/infobip-notifier": "^7.1",
         "symfony/intl": "^7.4",
         "symfony/iqsms-notifier": "^7.1",
-        "symfony/light-sms-notifier": "^7.1",
+        "symfony/light-sms-notifier": "^8.0",
         "symfony/linked-in-notifier": "^7.1",
         "symfony/mailchimp-mailer": "^7.1",
         "symfony/mailer": "^7.1",

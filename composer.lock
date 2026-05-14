@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "62d2d5e220d738d87e84aff05b68c13f",
+    "content-hash": "2e7fd089ac64a83f5c5832e7f646756f",
     "packages": [
         {
             "name": "alcohol/iso4217",
@@ -15069,22 +15069,22 @@
         },
         {
             "name": "symfony/octopush-notifier",
-            "version": "v7.4.0",
+            "version": "v8.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/octopush-notifier.git",
-                "reference": "f4c6c201d6ab4c4ee459af07d46c08d186ce367d"
+                "reference": "1f0cf94134ad16f551a73dce1df4ce0056f8a0ca"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/octopush-notifier/zipball/f4c6c201d6ab4c4ee459af07d46c08d186ce367d",
-                "reference": "f4c6c201d6ab4c4ee459af07d46c08d186ce367d",
+                "url": "https://api.github.com/repos/symfony/octopush-notifier/zipball/1f0cf94134ad16f551a73dce1df4ce0056f8a0ca",
+                "reference": "1f0cf94134ad16f551a73dce1df4ce0056f8a0ca",
                 "shasum": ""
             },
             "require": {
-                "php": ">=8.2",
-                "symfony/http-client": "^6.4|^7.0|^8.0",
-                "symfony/notifier": "^7.2|^8.0"
+                "php": ">=8.4",
+                "symfony/http-client": "^7.4|^8.0",
+                "symfony/notifier": "^7.4|^8.0"
             },
             "type": "symfony-notifier-bridge",
             "autoload": {
@@ -15117,7 +15117,7 @@
                 "sms"
             ],
             "support": {
-                "source": "https://github.com/symfony/octopush-notifier/tree/v7.4.0"
+                "source": "https://github.com/symfony/octopush-notifier/tree/v8.0.0"
             },
             "funding": [
                 {
@@ -15137,7 +15137,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-07-31T09:31:17+00:00"
+            "time": "2025-08-01T16:41:19+00:00"
         },
         {
             "name": "symfony/options-resolver",

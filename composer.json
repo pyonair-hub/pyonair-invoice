@@ -215,7 +215,7 @@
         "rector/rector": "^1.1",
         "roave/security-advisories": "dev-latest",
         "spatie/phpunit-snapshot-assertions": "^5.1",
-        "symfony/debug-bundle": "^7.1",
+        "symfony/debug-bundle": "^8.0",
         "symfony/maker-bundle": "^1.33",
         "symfony/panther": "^2.0",
         "symfony/web-profiler-bundle": "^7.1",

@@ -1,0 +1,315 @@
+/**
+ * SolidInvoice - Client Form Styles
+ *
+ * Client-specific styles for the client creation/edit form.
+ * Outer form-page layout uses shared classes from _form-page.scss.
+ */
+
+// ============================================================================
+// OPTIONAL SECTION VARIANT
+// ============================================================================
+
+.client-form-section-optional {
+    background: var(--swp-gray-50);
+    border-style: dashed;
+
+    .section-header {
+        background: transparent;
+    }
+}
+
+// ============================================================================
+// REQUIRED / OPTIONAL SECTION ICON MODIFIER
+// ============================================================================
+
+.section-icon-required {
+    background: linear-gradient(135deg, var(--swp-primary-light) 0%, rgba(var(--swp-primary-rgb), 0.2) 100%);
+}
+
+
+// ============================================================================
+// CONTACT CARD
+// ============================================================================
+
+.contacts-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--swp-space-4);
+}
+
+.contact-card {
+    background: var(--swp-gray-50);
+    border: 1px solid var(--swp-border);
+    border-radius: var(--swp-radius-md);
+    transition: border-color var(--swp-transition-fast),
+                box-shadow var(--swp-transition-fast);
+
+    &:focus-within {
+        border-color: rgba(var(--swp-primary-rgb), 0.4);
+        box-shadow: 0 0 0 3px rgba(var(--swp-primary-rgb), 0.08);
+    }
+}
+
+.contact-card-header {
+    display: flex;
+    align-items: center;
+    gap: var(--swp-space-3);
+    padding: var(--swp-space-3) var(--swp-space-4);
+    background: var(--swp-surface);
+    border-bottom: 1px solid var(--swp-border-light);
+}
+
+.contact-avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background: var(--swp-primary-light);
+    border-radius: var(--swp-radius-full);
+    color: var(--swp-primary);
+}
+
+.contact-card-title {
+    flex: 1;
+}
+
+.contact-label {
+    font-size: var(--swp-text-sm);
+    font-weight: var(--swp-font-semibold);
+    color: var(--swp-text-primary);
+}
+
+.contact-card-actions {
+    display: flex;
+    gap: var(--swp-space-2);
+}
+
+.contact-card-body {
+    padding: var(--swp-space-4);
+}
+
+.contact-form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--swp-space-3);
+
+    @media (width <= 576px) {
+        grid-template-columns: 1fr;
+    }
+}
+
+.contact-field-email {
+    grid-column: 1 / -1;
+}
+
+// ============================================================================
+// ADDITIONAL CONTACT DETAILS
+// ============================================================================
+
+.additional-details-section {
+    margin-top: var(--swp-space-4);
+    padding-top: var(--swp-space-4);
+    border-top: 1px dashed var(--swp-border);
+}
+
+.additional-details-header {
+    margin-bottom: var(--swp-space-3);
+}
+
+.additional-details-label {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--swp-space-2);
+    font-size: var(--swp-text-sm);
+    font-weight: var(--swp-font-medium);
+    color: var(--swp-text-secondary);
+}
+
+.additional-details-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--swp-space-2);
+}
+
+.additional-detail-row {
+    display: grid;
+    grid-template-columns: 140px 1fr auto;
+    gap: var(--swp-space-2);
+    align-items: start;
+
+    @media (width <= 576px) {
+        grid-template-columns: 1fr;
+        gap: var(--swp-space-2);
+
+        .additional-detail-action {
+            justify-self: end;
+        }
+    }
+}
+
+.additional-detail-action {
+    display: flex;
+    align-items: center;
+    padding-top: var(--swp-space-1);
+}
+
+.additional-details-add {
+    margin-top: var(--swp-space-3);
+}
+
+.add-detail-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--swp-space-1);
+    font-size: var(--swp-text-sm);
+}
+
+// ============================================================================
+// ADDRESS CARD
+// ============================================================================
+
+.addresses-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--swp-space-4);
+}
+
+.address-card {
+    background: var(--swp-surface);
+    border: 1px solid var(--swp-border);
+    border-radius: var(--swp-radius-md);
+    overflow: hidden;
+    transition: border-color var(--swp-transition-fast),
+                box-shadow var(--swp-transition-fast);
+
+    &:focus-within {
+        border-color: rgba(var(--swp-primary-rgb), 0.4);
+        box-shadow: 0 0 0 3px rgba(var(--swp-primary-rgb), 0.08);
+    }
+}
+
+.address-card-header {
+    display: flex;
+    align-items: center;
+    gap: var(--swp-space-3);
+    padding: var(--swp-space-3) var(--swp-space-4);
+    background: var(--swp-gray-50);
+    border-bottom: 1px solid var(--swp-border-light);
+}
+
+.address-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background: var(--swp-info-light);
+    border-radius: var(--swp-radius-full);
+    color: var(--swp-info);
+}
+
+.address-card-title {
+    flex: 1;
+}
+
+.address-label {
+    font-size: var(--swp-text-sm);
+    font-weight: var(--swp-font-semibold);
+    color: var(--swp-text-primary);
+}
+
+.address-card-actions {
+    display: flex;
+    gap: var(--swp-space-2);
+}
+
+.address-card-body {
+    padding: var(--swp-space-4);
+}
+
+.address-form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--swp-space-3);
+
+    @media (width <= 576px) {
+        grid-template-columns: 1fr;
+    }
+}
+
+// ============================================================================
+// ADD ITEM ACTION BUTTON
+// ============================================================================
+
+.add-item-action {
+    margin-top: var(--swp-space-4);
+    padding-top: var(--swp-space-4);
+    border-top: 1px dashed var(--swp-border);
+}
+
+.add-item-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--swp-space-2);
+    padding: var(--swp-space-2-5) var(--swp-space-4);
+    font-weight: var(--swp-font-medium);
+    border-style: dashed;
+    transition: all var(--swp-transition-fast);
+
+    &:hover {
+        background: var(--swp-primary-lighter);
+        border-style: solid;
+    }
+
+    &::before {
+        content: '+';
+        font-size: 1.25em;
+        font-weight: 300;
+    }
+}
+
+// ============================================================================
+// ANIMATION FOR NEW ITEMS
+// ============================================================================
+
+@keyframes client-slide-in {
+
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.contact-card,
+.address-card {
+    animation: client-slide-in 0.2s ease-out;
+}
+
+// ============================================================================
+// EMPTY STATE STYLING
+// ============================================================================
+
+.contacts-list:empty::before,
+.addresses-list:empty::before {
+    content: '';
+    display: none;
+}
+
+.empty-contacts-hint,
+.empty-addresses-hint {
+    padding: var(--swp-space-6);
+    text-align: center;
+    background: var(--swp-surface);
+    border: 2px dashed var(--swp-border);
+    border-radius: var(--swp-radius-md);
+
+    p {
+        font-size: var(--swp-text-sm);
+    }
+}

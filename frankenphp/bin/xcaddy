@@ -1,0 +1,119 @@
+#!/usr/bin/env bash
+
+# Fake xcaddy script for SolidInvoice build
+#
+# This script masquerades as xcaddy but actually builds our custom Go application.
+# When static-php-cli runs "xcaddy build", it calls this script instead,
+# which builds our app.go with only SolidInvoice commands.
+#
+# This allows us to:
+# - Use upstream build-static.sh without modifications
+# - Keep all env vars and CGO flags set by static-php-cli
+# - Build with our custom main package instead of xcaddy's generated one
+
+set -euxo pipefail
+
+# print all arguments passed:
+echo "xcaddy called with arguments: $@"
+
+# Parse xcaddy arguments to find output location
+OUTPUT="dist/static-php-cli/buildroot/bin/frankenphp"
+while [[ $# -gt 0 ]]; do
+	case $1 in
+		--output)
+			#OUTPUT="$2"
+			shift 2
+			;;
+		--with)
+			# Ignore --with flags (we have our own imports in app.go)
+			shift 2
+			;;
+		build)
+			# Ignore the build command itself
+			shift
+			;;
+		*)
+			# Ignore other arguments
+			shift
+			;;
+	esac
+done
+
+# Detect OS for platform-specific linker flags
+CURRENT_OS="$(uname -s | tr '[:upper:]' '[:lower:]')"
+
+echo "=========================================="
+echo "Building SolidInvoice Custom Binary"
+echo "=========================================="
+echo "Output: ${OUTPUT}"
+echo "CGO_ENABLED: ${CGO_ENABLED:-not set}"
+echo "CGO_CFLAGS: ${CGO_CFLAGS:-not set}"
+echo ""
+
+# Get the SolidInvoice source directory from environment variable
+# This is set by build-solidinvoice.sh
+if [ -z "${SOLIDINVOICE_SOURCE_DIR:-}" ]; then
+	echo "Error: SOLIDINVOICE_SOURCE_DIR environment variable not set"
+	echo "This should be set by build-solidinvoice.sh"
+	exit 1
+fi
+
+if [ ! -d "${SOLIDINVOICE_SOURCE_DIR}" ]; then
+	echo "Error: SOLIDINVOICE_SOURCE_DIR does not exist: ${SOLIDINVOICE_SOURCE_DIR}"
+	exit 1
+fi
+
+# Build our custom application using the CGO flags set by static-php-cli
+cd "${SOLIDINVOICE_SOURCE_DIR}"
+
+# Get version from environment or use git
+VERSION="${FRANKENPHP_VERSION:-dev}"
+
+echo "Building from: ${SOLIDINVOICE_SOURCE_DIR}"
+echo "Version: ${VERSION}"
+echo ""
+
+# Verify we have Go source files
+if ! ls *.go >/dev/null 2>&1; then
+	echo "Error: No Go files found in ${SOLIDINVOICE_SOURCE_DIR}"
+	exit 1
+fi
+
+# Build with the same flags that xcaddy would use, but with our app.go.
+# Linker flags differ between macOS and Linux (musl static builds).
+DYNSYM="$(pwd)/dist/static-php-cli/buildroot/lib/libphp.a.dynsym"
+
+if [ "${CURRENT_OS}" = "linux" ]; then
+	# Linux musl static build: use -static-pie and GNU ld --dynamic-list
+	EXTLDFLAGS="-static-pie -Wl,-z,stack-size=0x80000 -Wl,--dynamic-list=${DYNSYM}"
+	BUILD_TAGS="static_build,nobadger,nomysql,nopgx,nowatcher"
+else
+	# macOS: use -pie and -exported_symbols_list
+	EXTLDFLAGS="-pie -Wl,-exported_symbols_list,${DYNSYM}"
+	BUILD_TAGS="nobadger,nomysql,nopgx,nowatcher"
+fi
+
+# Tee the go build output to a log file so failures are diagnosable
+# even when the parent (static-php-cli) suppresses our stdout/stderr.
+GO_BUILD_LOG="$(pwd)/dist/static-php-cli/log/go-build.log"
+mkdir -p "$(dirname "${GO_BUILD_LOG}")"
+
+set +e
+go build \
+  -v \
+  -buildmode=pie \
+  -ldflags "-linkmode=external -extldflags '${EXTLDFLAGS} ' -X 'github.com/caddyserver/caddy/v2.CustomVersion=${VERSION}'" \
+  -tags="${BUILD_TAGS}" \
+	-o "${OUTPUT}" \
+	. 2>&1 | tee "${GO_BUILD_LOG}"
+GO_BUILD_RC=${PIPESTATUS[0]}
+set -e
+
+if [ "${GO_BUILD_RC}" -ne 0 ]; then
+	echo "go build failed with exit code ${GO_BUILD_RC}; full output saved to ${GO_BUILD_LOG}" >&2
+	exit "${GO_BUILD_RC}"
+fi
+
+echo ""
+echo "Custom binary built successfully: ${OUTPUT}"
+echo ""

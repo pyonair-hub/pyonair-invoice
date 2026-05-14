@@ -1,0 +1,11 @@
+# CI test values: PostgreSQL subchart enabled
+
+postgresql:
+  enabled: true
+  auth:
+    database: solidinvoice
+    username: solidinvoice
+    password: "testpassword"
+
+worker:
+  enabled: true

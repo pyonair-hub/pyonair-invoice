@@ -1,0 +1,31 @@
+/**
+ * SolidInvoice - Users Page Styles
+ *
+ * Modern users list page with KPI cards and tabbed interface.
+ * Uses design system tokens for consistent styling.
+ */
+
+// ============================================================================
+// USERS PAGE CONTAINER
+// ============================================================================
+
+.users-page {
+    min-height: 100%;
+}
+
+// ============================================================================
+// KPI STATS CARDS (Top of Page)
+// ============================================================================
+
+// Uses standard Bootstrap card-sm styling from recent redesigns
+// No custom styles needed - Bootstrap/Tabler handles this
+
+// ============================================================================
+// TABS IN CARD HEADER
+// ============================================================================
+
+// Uses standard nav-tabs card-header-tabs pattern
+// Custom tab styles are in _tabs.scss component
+// No additional custom styles needed
+
+// Empty state uses Tabler's built-in .empty component classes

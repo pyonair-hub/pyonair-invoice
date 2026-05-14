@@ -1,0 +1,81 @@
+{
+    "name": "solidinvoice",
+    "description": "SolidInvoice Billing Application",
+    "version": "3.0.0-alpha2",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/SolidInvoice/SolidInvoice.git"
+    },
+    "keywords": [
+        "billing"
+    ],
+    "author": "Pierre du Plessis",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/SolidInvoice/SolidInvoice/issues"
+    },
+    "homepage": "https://solidinvoice.co",
+    "scripts": {
+        "dev": "encore dev",
+        "watch": "encore dev --watch",
+        "build": "encore production --progress",
+        "lint:js": "eslint assets",
+        "lint:css": "stylelint 'assets/**/*.{scss,css}'"
+    },
+    "devDependencies": {
+        "@babel/preset-env": "^7.26.9",
+        "@codecov/webpack-plugin": "^1.0.1",
+        "@eslint/js": "^10.0.0",
+        "@hotwired/stimulus": "^3.2.2",
+        "@solidworx/platform": "file:vendor/solidworx/platform/assets",
+        "@symfony/stimulus-bundle": "file:vendor/symfony/stimulus-bundle/assets",
+        "@symfony/ux-autocomplete": "file:vendor/symfony/ux-autocomplete/assets",
+        "@symfony/ux-chartjs": "file:vendor/symfony/ux-chartjs/assets",
+        "@symfony/ux-dropzone": "file:vendor/symfony/ux-dropzone/assets",
+        "@symfony/ux-live-component": "file:vendor/symfony/ux-live-component/assets",
+        "@symfony/ux-toggle-password": "file:vendor/symfony/ux-toggle-password/assets",
+        "@symfony/webpack-encore": "^5.1.0",
+        "@types/bootstrap": "^5.2.10",
+        "@types/jquery": "^3.5.29",
+        "bootstrap": "^5.3.8",
+        "chart.js": "^3.4.1 || ^4.0",
+        "cloudinary": "^2.1.0",
+        "eslint": "^9.38.0",
+        "eslint-webpack-plugin": "^5.0.2",
+        "postcss": "^8.4.38",
+        "postcss-scss": "^4.0.6",
+        "sass": "^1.63.3",
+        "sass-loader": "^16.0.5",
+        "stylelint": "^16.15.0",
+        "stylelint-config-recommended": "^17.0.0",
+        "stylelint-config-standard-scss": "^16.0.0",
+        "stylelint-scss": "^6.11.1",
+        "tom-select": "^2.2.2",
+        "ts-loader": "^9.0.0",
+        "typescript": "^5.8.2",
+        "typescript-eslint": "^8.46.1",
+        "webpack": "^5.90.3",
+        "webpack-cli": "^6.0.1"
+    },
+    "dependencies": {
+        "@fortawesome/fontawesome-free": "^6.4.0",
+        "@stimulus-components/checkbox-select-all": "^6.0.0",
+        "@stimulus-components/clipboard": "^5.0.0",
+        "@stimulus-components/password-visibility": "^3.0.0",
+        "@symfony/stimulus-bridge": "^4.0.1",
+        "@tabler/core": "^1.4.0",
+        "caniuse-lite": "^1.0.30001756",
+        "intl-messageformat": "^10.5.0",
+        "jquery": "^3.7.1",
+        "@popperjs/core": "^2.11.8",
+        "regenerator-runtime": "^0.14.1"
+    },
+    "engines": {
+        "node": "22"
+    },
+    "packageManager": "bun@1.2.22",
+    "trustedDependencies": [
+        "@fortawesome/fontawesome-free",
+        "core-js-pure"
+    ]
+}

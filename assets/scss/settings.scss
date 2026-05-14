@@ -1,0 +1,134 @@
+/**
+ * Settings Page Styles
+ * Only custom styles that can't be achieved with Bootstrap/Tabler utilities
+ */
+
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+@import '~bootstrap/scss/mixins';
+
+// ============================================================================
+// Settings Page Container - Max-width centering
+// ============================================================================
+
+.settings-page {
+    max-width: 900px;
+    margin: 0 auto;
+    padding-bottom: 2rem;
+}
+
+// Mobile: horizontal scrolling tabs
+@include media-breakpoint-down(md) {
+
+    .settings-page > .nav-underline {
+        margin-left: -1rem;
+        margin-right: -1rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        flex-wrap: nowrap;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+
+        .nav-item {
+            flex-shrink: 0;
+        }
+    }
+}
+
+// ============================================================================
+// Settings Card - Disable hover transform
+// ============================================================================
+
+.settings-content-card {
+
+    &:hover {
+        transform: none;
+    }
+}
+
+// ============================================================================
+// Logo Upload - Custom dropzone styling
+// ============================================================================
+
+.logo-upload-card {
+
+    .logo-preview-frame {
+        width: 80px;
+        height: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #ffffff;
+        border-radius: 0.5rem;
+        border: 1px solid #e2e8f0;
+        overflow: hidden;
+
+        img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+    }
+
+    .dropzone {
+        border: 2px dashed #cbd5e1;
+        border-radius: 0.5rem;
+        min-height: auto;
+
+        &:hover,
+        &.dropzone-dragover {
+            border-color: var(--swp-primary);
+            background-color: rgba(var(--swp-primary-rgb), 0.02);
+        }
+    }
+}
+
+// ============================================================================
+// Danger Zone - Custom border styling
+// ============================================================================
+
+.settings-danger-zone .card {
+    border-width: 2px;
+
+    &:hover {
+        transform: none;
+    }
+}
+
+// ============================================================================
+// Delete Company Modal - Enhanced styling
+// ============================================================================
+
+#deleteCompanyModal {
+
+    .modal-content {
+        border-radius: 1rem;
+        box-shadow: 0 25px 50px -12px rgb(0 0 0 / 25%);
+    }
+
+    .font-monospace {
+        background-color: #fef2f2;
+        padding: 0.5rem 1rem;
+        border-radius: 0.5rem;
+    }
+}
+
+// ============================================================================
+// Print Styles
+// ============================================================================
+
+@media print {
+
+    .settings-page {
+
+        .nav-underline,
+        .settings-danger-zone,
+        .card-footer {
+            display: none !important;
+        }
+    }
+}

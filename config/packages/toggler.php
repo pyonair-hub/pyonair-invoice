@@ -1,0 +1,25 @@
+<?php
+
+declare(strict_types=1);
+
+/*
+ * This file is part of SolidInvoice project.
+ *
+ * (c) Pierre du Plessis <open-source@solidworx.co>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
+use Symfony\Config\TogglerConfig;
+use function Symfony\Component\DependencyInjection\Loader\Configurator\env;
+
+return static function (TogglerConfig $config): void {
+    $config
+        ->config()
+        ->features('allow_registration', env('SOLIDINVOICE_ALLOW_REGISTRATION'))
+        ->features('google_oauth_login', '@=env("SOLIDINVOICE_OAUTH_CLIENT_GOOGLE_CLIENT_ID") !== null && env("SOLIDINVOICE_OAUTH_CLIENT_GOOGLE_CLIENT_SECRET") !== null')
+        ->features('saas_enabled', '@=env("SOLIDINVOICE_PLATFORM") === \'saas\'')
+        ->features('meilisearch_search', '@=env("SOLIDINVOICE_MEILISEARCH_URL") !== "" && env("SOLIDINVOICE_MEILISEARCH_API_KEY") !== ""')
+    ;
+};

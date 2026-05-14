@@ -1,0 +1,46 @@
+/**
+ * External Invoice View
+ *
+ * Invoice-specific styles for the public-facing invoice page.
+ * All shared external document styles are in components/_external-doc-view.scss.
+ */
+
+// Invoice-specific action button
+
+.btn-invoice-action {
+    padding: 0.75rem 1.25rem;
+    font-weight: 500;
+    border-radius: 0.375rem;
+    transition: all 0.2s ease;
+
+    &:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgb(0 0 0 / 10%);
+    }
+
+    &:active {
+        transform: translateY(0);
+    }
+}
+
+// Screen reader only text
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+@media print {
+
+    .btn-invoice-action:hover {
+        box-shadow: none !important;
+        transform: none !important;
+    }
+}

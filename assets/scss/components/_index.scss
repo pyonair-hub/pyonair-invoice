@@ -1,0 +1,57 @@
+/**
+ * SolidInvoice Design System - Component Index
+ *
+ * Custom component styles that extend Bootstrap/Tabler.
+ * Only add styles here that provide functionality beyond what Bootstrap/Tabler offer.
+ *
+ * Note: Most component styling comes from Bootstrap 5 and Tabler.
+ * This file imports only custom extensions, not replacements.
+ */
+
+// Shared Form Page - Consolidated form-page layout pattern
+@import 'form-page';
+
+// Document View - Shared layout for Invoice and Quote view pages
+@import 'document-view';
+
+// External Document View - Shared layout for public-facing Invoice and Quote pages
+@import 'external-doc-view';
+
+// Marketplace - Shared styles for Payment and Notification marketplace pages
+@import 'marketplace';
+
+// Global Search - Top navigation search bar with live results dropdown
+@import 'global-search';
+
+// DataGrid - Modern table/grid component styles
+@import 'datagrid';
+
+// Client Form - Modern client creation form
+@import 'client-form';
+
+// Billing Form - Shared styles for Invoice and Quote creation forms
+@import 'billing-form';
+
+// Payment Page - Invoice payment form with method selection
+@import 'payment-page';
+
+// Payments List - Payments list page with KPI cards and filters
+@import 'payments-list';
+
+// Users Page - Users list with KPI cards and tabs
+@import 'users-page';
+
+// Profile Page - User profile and settings pages
+@import 'profile-page';
+
+// Two-Factor Authentication - 2FA configuration and login pages
+@import 'two-factor';
+
+// Notifications Page - User notification preferences
+@import 'notifications-page';
+
+// Subscription Pages - Trial expired, cancelled, pending subscription states
+@import 'subscription-pages';
+
+// Onboarding Checklist - Dashboard checklist widget styles
+@import 'onboarding-checklist';

@@ -15,7 +15,9 @@ RUN apt-get update && \
         libcurl4-openssl-dev \
         libonig-dev \
         libxslt1-dev \
-        libxml2-dev && \
+        libxml2-dev \
+        curl \
+        ca-certificates && \
     rm -rf /var/lib/apt/lists/*
 
 # Install PHP extensions (including soap, xsl required by SolidInvoice)
@@ -44,7 +46,12 @@ WORKDIR /var/www/html
 # Copy application code
 COPY . .
 
-# Install dependencies (show errors for debugging)
+# Install Symfony CLI (needed for post-install scripts)
+RUN curl -sS https://get.symfony.com/cli/installer | bash && \
+    mv /root/.symfony*/bin/symfony /usr/local/bin/symfony 2>/dev/null || true
+
+# Install dependencies
+ENV COMPOSER_ALLOW_SUPERUSER=1
 RUN composer install --no-dev --optimize-autoloader --no-interaction
 
 # Set permissions

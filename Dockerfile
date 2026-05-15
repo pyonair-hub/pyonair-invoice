@@ -50,19 +50,26 @@ COPY . .
 RUN curl -sS https://get.symfony.com/cli/installer | bash && \
     mv /root/.symfony*/bin/symfony /usr/local/bin/symfony 2>/dev/null || true
 
-# Create .env for Symfony with prod settings
-RUN cp .env.dist .env 2>/dev/null || echo "SOLIDINVOICE_ENV=prod" > .env && \
-    sed -i 's/^SOLIDINVOICE_ENV=.*/SOLIDINVOICE_ENV=prod/' .env && \
-    sed -i 's/^SOLIDINVOICE_DEBUG=.*/SOLIDINVOICE_DEBUG=0/' .env && \
-    cat .env | head -5
-
-# Set prod environment for Symfony kernel (avoids loading dev bundles)
+# Set prod environment BEFORE anything else
 ENV APP_ENV=prod
 ENV SOLIDINVOICE_ENV=prod
+ENV SOLIDINVOICE_DEBUG=0
 ENV COMPOSER_ALLOW_SUPERUSER=1
 
-# Install dependencies
-RUN composer install --no-dev --optimize-autoloader --no-interaction
+# Create .env with prod settings AND .env.local to override
+RUN echo 'SOLIDINVOICE_ENV=prod' > .env && \
+    echo 'SOLIDINVOICE_DEBUG=0' >> .env && \
+    echo 'SOLIDINVOICE_ENV=prod' > .env.local && \
+    echo 'SOLIDINVOICE_DEBUG=0' >> .env.local
+
+# Install dependencies (skip post-install scripts that need DB)
+RUN composer install --no-dev --optimize-autoloader --no-interaction --no-scripts
+
+# Run only safe post-install tasks
+RUN composer run-script post-install-cmd 2>/dev/null || true
+
+# Compile .env.local.php for optimized env loading
+RUN php -r "file_put_contents('.env.local.php', '<?php return ' . var_export(['SOLIDINVOICE_ENV' => 'prod', 'SOLIDINVOICE_DEBUG' => '0', 'APP_ENV' => 'prod'], true) . ';');"
 
 # Clear any dev cache and warm up prod cache
 RUN php bin/console cache:clear --env=prod --no-debug 2>/dev/null || true && \

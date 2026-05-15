@@ -13,12 +13,17 @@ RUN apt-get update && \
         libxml2-dev \
         libzip-dev \
         libcurl4-openssl-dev \
-        libonig-dev && \
+        libonig-dev \
+        libxslt1-dev \
+        libxml2-dev && \
     rm -rf /var/lib/apt/lists/*
 
-# Install PHP extensions
+# Install PHP extensions (including soap, xsl required by SolidInvoice)
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg && \
-    docker-php-ext-install -j$(nproc) pdo pdo_mysql intl xml opcache zip gd curl mbstring bcmath
+    docker-php-ext-install -j$(nproc) pdo pdo_mysql intl xml opcache zip gd curl mbstring bcmath soap xsl
+
+# Install Redis extension via PECL
+RUN pecl install redis && docker-php-ext-enable redis
 
 # Install composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer

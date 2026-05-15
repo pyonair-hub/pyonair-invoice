@@ -1,4 +1,4 @@
-FROM php:8.2-apache
+FROM php:8.4-apache
 
 # Install dependencies
 RUN apt-get update && \
@@ -7,13 +7,18 @@ RUN apt-get update && \
         zip \
         unzip \
         libpng-dev \
+        libjpeg62-turbo-dev \
+        libfreetype6-dev \
         libicu-dev \
         libxml2-dev \
-        libzip-dev && \
+        libzip-dev \
+        libcurl4-openssl-dev \
+        libonig-dev && \
     rm -rf /var/lib/apt/lists/*
 
 # Install PHP extensions
-RUN docker-php-ext-install pdo pdo_mysql intl xml opcache zip
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg && \
+    docker-php-ext-install -j$(nproc) pdo pdo_mysql intl xml opcache zip gd curl mbstring bcmath
 
 # Install composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
@@ -34,12 +39,18 @@ WORKDIR /var/www/html
 # Copy application code
 COPY . .
 
-# Install dependencies
-RUN composer install --no-dev --optimize-autoloader --no-interaction 2>/dev/null || true
+# Install dependencies (show errors for debugging)
+RUN composer install --no-dev --optimize-autoloader --no-interaction
 
 # Set permissions
-RUN chown -R www-data:www-data var/ 2>/dev/null || true
+RUN chown -R www-data:www-data var/ 2>/dev/null || true && \
+    chmod -R 775 var/ 2>/dev/null || true
 
 EXPOSE 80
 
+# Entrypoint for runtime setup
+COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+
+ENTRYPOINT ["docker-entrypoint.sh"]
 CMD ["apache2-foreground"]

@@ -50,8 +50,17 @@ COPY . .
 RUN curl -sS https://get.symfony.com/cli/installer | bash && \
     mv /root/.symfony*/bin/symfony /usr/local/bin/symfony 2>/dev/null || true
 
-# Install dependencies
+# Create .env for Symfony (needed before composer scripts)
+RUN cp .env.dist .env 2>/dev/null || true
+RUN sed -i 's/SOLIDINVOICE_ENV=dev/SOLIDINVOICE_ENV=prod/' .env 2>/dev/null || true && \
+    sed -i 's/SOLIDINVOICE_DEBUG=1/SOLIDINVOICE_DEBUG=0/' .env 2>/dev/null || true
+
+# Set prod environment for Symfony kernel (avoids loading dev bundles)
+ENV APP_ENV=prod
+ENV SOLIDINVOICE_ENV=prod
 ENV COMPOSER_ALLOW_SUPERUSER=1
+
+# Install dependencies
 RUN composer install --no-dev --optimize-autoloader --no-interaction
 
 # Set permissions

@@ -50,10 +50,11 @@ COPY . .
 RUN curl -sS https://get.symfony.com/cli/installer | bash && \
     mv /root/.symfony*/bin/symfony /usr/local/bin/symfony 2>/dev/null || true
 
-# Create .env for Symfony (needed before composer scripts)
-RUN cp .env.dist .env 2>/dev/null || true
-RUN sed -i 's/SOLIDINVOICE_ENV=dev/SOLIDINVOICE_ENV=prod/' .env 2>/dev/null || true && \
-    sed -i 's/SOLIDINVOICE_DEBUG=1/SOLIDINVOICE_DEBUG=0/' .env 2>/dev/null || true
+# Create .env for Symfony with prod settings
+RUN cp .env.dist .env 2>/dev/null || echo "SOLIDINVOICE_ENV=prod" > .env && \
+    sed -i 's/^SOLIDINVOICE_ENV=.*/SOLIDINVOICE_ENV=prod/' .env && \
+    sed -i 's/^SOLIDINVOICE_DEBUG=.*/SOLIDINVOICE_DEBUG=0/' .env && \
+    cat .env | head -5
 
 # Set prod environment for Symfony kernel (avoids loading dev bundles)
 ENV APP_ENV=prod
@@ -63,9 +64,13 @@ ENV COMPOSER_ALLOW_SUPERUSER=1
 # Install dependencies
 RUN composer install --no-dev --optimize-autoloader --no-interaction
 
+# Clear any dev cache and warm up prod cache
+RUN php bin/console cache:clear --env=prod --no-debug 2>/dev/null || true && \
+    php bin/console cache:warmup --env=prod --no-debug 2>/dev/null || true
+
 # Set permissions
 RUN chown -R www-data:www-data var/ 2>/dev/null || true && \
-    chmod -R 775 var/ 2>/dev/null || true
+    chmod -R 777 var/ 2>/dev/null || true
 
 EXPOSE 80
 
